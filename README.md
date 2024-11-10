@@ -23,6 +23,24 @@ npm run dynamodb:local:install
 npm run dev
 ```
 
+### **Steps for deploy**
+1. Configurate Crendentials AWS
+```
+aws configure
+```
+2. Install dependencies
+```
+npm install
+```
+3. Deploy to AWS
+```
+npm run deploy
+```
+4. Optional - Remove all resourcesd deployed
+```
+npm run deploy:remove
+```
+
 ### **Extra commands**
 1. Run unit test
 ```
