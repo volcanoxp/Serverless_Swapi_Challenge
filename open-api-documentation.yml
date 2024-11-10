@@ -1,0 +1,219 @@
+openapi: 3.0.0
+info:
+  title: Vehicle API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+tags:
+  - name: Vehicle
+    description: Everything about Vehicle API
+
+paths:
+  /vehicle/{vehicleId}:
+    get:
+      tags:
+        - Vehicle
+      summary: Get vehicle information
+      description: Retrieve details of a specific vehicle.
+      parameters:
+        - name: vehicleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vehicle details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '404':
+          description: Vehicle not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+  /vehicle:
+    get:
+      tags:
+        - Vehicle
+      summary: Get all vehicles
+      description: Retrieve a list of all vehicles.
+      responses:
+        '200':
+          description: List of vehicles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+    post:
+      tags:
+        - Vehicle
+      summary: Create a new vehicle
+      description: Adds a new vehicle to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleInput'
+      responses:
+        '200':
+          description: Vehicle created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+components:
+  schemas:
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "4"
+        nombre:
+          type: string
+          example: "Sand Crawler"
+        modelo:
+          type: string
+          example: "Digger Crawler"
+        fabricante:
+          type: string
+          example: "Corellia Mining Corporation"
+        costoEnCreditos:
+          type: string
+          example: "150000"
+        longitud:
+          type: string
+          example: "36.8"
+        velocidadAtfmosfericaMax:
+          type: string
+          example: "30"
+        tripulacion:
+          type: string
+          example: "46"
+        pasajeros:
+          type: string
+          example: "30"
+        capacidadCarga:
+          type: string
+          example: "50000"
+        consumibles:
+          type: string
+          example: "2 months"
+        claseVehiculo:
+          type: string
+          example: "wheeled"
+        pilotos:
+          type: array
+          items:
+            type: string
+          example: [
+            "https://swapi.py4e.com/api/films/1/"
+          ]
+        peliculas:
+          type: array
+          items:
+            type: string
+          example: [
+            "https://swapi.py4e.com/api/films/1/"
+          ]
+        url:
+          type: string
+          example: "https://swapi.py4e.com/api/vehicles/4/"
+        creado:
+          type: string
+          format: date-time
+          example: "2014-12-10T15:36:25.724000Z"
+        editado:
+          type: string
+          format: date-time
+          example: "2014-12-20T21:30:21.661000Z"
+
+    VehicleInput:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: "Test1"
+        modelo:
+          type: string
+          example: "test"
+        fabricante:
+          type: string
+          example: "Fabricante Test"
+        costoEnCreditos:
+          type: string
+          example: "150000"
+        longitud:
+          type: string
+          example: "368"
+        velocidadAtfmosfericaMax:
+          type: string
+          example: "30"
+        tripulacion:
+          type: string
+          example: "46"
+        pasajeros:
+          type: string
+          example: "30"
+        capacidadCarga:
+          type: string
+          example: "50000"
+        consumibles:
+          type: string
+          example: "2 months"
+        claseVehiculo:
+          type: string
+          example: "wheeled"
+        pilotos:
+          type: array
+          items:
+            type: string
+          example: []
+        peliculas:
+          type: array
+          items:
+            type: string
+          example: []
+        url:
+          type: string
+          example: "https://swapi.py4e.com/api/vehicles/8/"
+
+    NotFoundResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "The vehicle id was not found"
+
+    InternalServerErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Internal Server Error"

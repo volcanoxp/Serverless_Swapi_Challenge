@@ -36,7 +36,7 @@ export class InternalServerError implements APIResponse {
 	constructor() {
 		this.statusCode = 500
 		this.body = JSON.stringify({
-			message: 'Intenal Server Error',
+			message: 'Internal Server Error',
 		})
 	}
 }
