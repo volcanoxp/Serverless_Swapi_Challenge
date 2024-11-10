@@ -1,0 +1,58 @@
+service: serverless-swapi
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource:
+            - Fn::GetAtt: [ VehicleTable, Arn ]
+
+functions:
+  findOneVehicle:
+    handler: src/vehicle/presentation/handlers/vehicle-handler.findOne
+    events:
+      - httpApi:
+          path: /vehicle/{id}
+          method: get
+
+  saveVehicle:
+    handler: src/vehicle/presentation/handlers/vehicle-handler.save
+    events:
+      - httpApi:
+          path: /vehicle
+          method: post
+
+  findAllVehicle:
+    handler: src/vehicle/presentation/handlers/vehicle-handler.findAll
+    events:
+      - httpApi:
+          path: /vehicle
+          method: get
+
+resources:
+  Resources:
+    VehicleTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: VehicleTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+
+custom:
+  dynamodb:
+    stages:
+      - dev
