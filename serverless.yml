@@ -4,6 +4,13 @@ plugins:
   - serverless-dynamodb-local
   - serverless-offline
 
+build:
+  esbuild:
+    bundle: true
+    minify: true
+    packages: external
+    buildConcurrency: 3
+
 provider:
   name: aws
   runtime: nodejs20.x
