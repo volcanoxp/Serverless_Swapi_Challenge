@@ -8,6 +8,6 @@ const swapiRepository = new SwapiRepositoryAPI()
 const vehicleService = new VehicleService(vehicleRepository, swapiRepository)
 const vehicleController = new VehicleController(vehicleService)
 
-export const findOne = vehicleController.findOne;
-export const save = vehicleController.save;
-export const findAll = vehicleController.findAll;
+export const findOne = vehicleController.findOne
+export const save = vehicleController.save
+export const findAll = vehicleController.findAll

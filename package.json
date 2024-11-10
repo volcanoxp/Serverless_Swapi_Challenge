@@ -9,7 +9,9 @@
     "lint:fix": "biome check --fix",
     "dev": "sls offline start",
     "test": "jest",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "deploy": "sls deploy",
+    "deploy:remove": "sls remove"
   },
   "keywords": [],
   "author": "",
